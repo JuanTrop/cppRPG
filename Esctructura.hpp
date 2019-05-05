@@ -5,6 +5,15 @@
 #include<sstream>
 #include<SDL2/SDL.h>
 #include"sprite.h"
+SDL_Event event;
+SDL_Renderer *renderer;
+SDL_Window *window;
+void inicio(){
+    if(SDL_Init(SDL_INIT_VIDEO)<0){
+		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
+	}
+	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_WIDTH,0,&window,&renderer);
+}
 template <typename T>
 std::string Str(const T & t){
 	std::ostringstream os;
@@ -55,4 +64,35 @@ std::vector< std::vector<uint32_t> > chunk (int n){
 		}
 	}
 	return res;
+}
+struct Data{
+	//Puede ser entidad fija, paso, obstaculo, etc
+	std::string type;
+	Data(std::string type){
+		this->type = type;
+	}
+	
+
+};
+struct Capa{
+	std::vector< std::vector<Data>> data;
+	Capa(int x, int y){
+
+	}
+};
+struct Mapeo{
+	std::vector<Capa> capa;
+};
+bool loadMap(){
+	//Dibujar capas de mapeo
+	return true;
+}
+bool executeGame(){
+	
+}
+bool close(){
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return EXIT_SUCCESS;
 }
