@@ -89,17 +89,13 @@ void draw(){
 }
 
 int menu(){
-	//Se dibuja un menú en pantalla y de acuerdo a la opcion se ejecuta el juego
 	return 1;
 }
 void jugar(){
-	//Se hace el juego aquí
 }
 void cargar_partida(){
-	//Manejo de archivos con interfaz
 }
 void opciones(){
-	//Manejo de ajustes
 }
 bool executeGame(){
 	while(true){
