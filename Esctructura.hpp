@@ -10,7 +10,6 @@ SDL_Renderer *renderer;
 SDL_Window *window;
 const int WINDOW_WIDTH=600;
 const int WINDOW_HEIGHT=400;
-const int NumTexturas = sprite.size()/256;
 //Vector de texturas
 std::vector< std::vector< std::vector< uint32_t > > > texturas;
 void inicio(){
@@ -72,24 +71,21 @@ std::vector< std::vector<uint32_t> > chunk (int n){
 	return res;
 }
 //Almacenar texturas en memoria
-void cargarTexturas(){
-	for(int i=0; i<NumTexturas; i++){
-		texturas.push_back(chunk(i));
-	}
-}
+void cargarTexturas(){for(int i=0; i<NumTexturas; i++){texturas.push_back(chunk(i));}}
+
 //Dibuja
 void draw(){
-	std::vector< std::vector<uint32_t> > aux = chunk(0);
-    for(int x = 0; x< NumTexturas;x++){
-        aux = texturas.at(x);
-        for (int i = 0; i < 16; i++){
-            for(int j = 0; j< 16; j++){
-                piskel.update(aux[j][i]);
-                SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
-                SDL_RenderDrawPoint(renderer,i+16*x,j);
-            }
-        }
-    }
+	std::for_each(texturas.begin(),texturas.end(),[](std::vector<std::vector<uint32_t>> texturas)->void {
+		static int n = 0;
+		for (int i = 0; i < 16; i++){
+			for(int j = 0; j< 16; j++){
+				piskel.update(texturas[j][i]);
+				SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
+				SDL_RenderDrawPoint(renderer,i+16*(n),j);
+			}
+		}
+		n++;
+	});
 }
 
 int menu(){
