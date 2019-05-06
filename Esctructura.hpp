@@ -8,11 +8,16 @@
 SDL_Event event;
 SDL_Renderer *renderer;
 SDL_Window *window;
+const int WINDOW_WIDTH=600;
+const int WINDOW_HEIGHT=400;
+const int NumTexturas = sprite.size()/256;
+//Vector de texturas
+std::vector< std::vector< std::vector< uint32_t > > > texturas;
 void inicio(){
     if(SDL_Init(SDL_INIT_VIDEO)<0){
 		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
 	}
-	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_WIDTH,0,&window,&renderer);
+	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer);
 }
 template <typename T>
 std::string Str(const T & t){
@@ -35,6 +40,7 @@ struct Piskel {
 		return Str(unsigned(R))+" "+Str(unsigned(G))+" "+Str(unsigned(B))+" "+Str(unsigned(A));
 	}
 };
+Piskel piskel = Piskel(0xff00ff00);
 std::vector< std::vector<uint32_t> > chunk (int n){
 	std::vector< std::vector<int> > mat = {
 		{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15},
@@ -65,30 +71,49 @@ std::vector< std::vector<uint32_t> > chunk (int n){
 	}
 	return res;
 }
-struct Data{
-	//Puede ser entidad fija, paso, obstaculo, etc
-	std::string type;
-	Data(std::string type){
-		this->type = type;
+//Almacenar texturas en memoria
+void cargarTexturas(){
+	for(int i=0; i<NumTexturas; i++){
+		texturas.push_back(chunk(i));
 	}
-	
+}
+//Dibuja
+void draw(){
+	std::vector< std::vector<uint32_t> > aux = chunk(0);
+    for(int x = 0; x< NumTexturas;x++){
+        aux = texturas.at(x);
+        for (int i = 0; i < 16; i++){
+            for(int j = 0; j< 16; j++){
+                piskel.update(aux[j][i]);
+                SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
+                SDL_RenderDrawPoint(renderer,i+16*x,j);
+            }
+        }
+    }
+}
 
-};
-struct Capa{
-	std::vector< std::vector<Data>> data;
-	Capa(int x, int y){
-
-	}
-};
-struct Mapeo{
-	std::vector<Capa> capa;
-};
-bool loadMap(){
-	//Dibujar capas de mapeo
-	return true;
+int menu(){
+	//Se dibuja un menú en pantalla y de acuerdo a la opcion se ejecuta el juego
+	return 1;
+}
+void jugar(){
+	//Se hace el juego aquí
+}
+void cargar_partida(){
+	//Manejo de archivos con interfaz
+}
+void opciones(){
+	//Manejo de ajustes
 }
 bool executeGame(){
-	
+	while(true){
+		switch(menu()){
+			case 1:jugar();break;
+			case 2:cargar_partida();break;
+			case 3:opciones();break;
+			default:return 3;
+		}
+	}
 }
 bool close(){
     SDL_DestroyRenderer(renderer);
