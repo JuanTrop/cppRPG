@@ -7,6 +7,8 @@ int main(int argc , char *argv[]){
     while(true){
         if(SDL_PollEvent(&event)&&event.type==SDL_QUIT){
             break;
+        }else{
+            //Hilo principal
         }
     }
     return close();

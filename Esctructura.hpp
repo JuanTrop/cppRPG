@@ -12,15 +12,6 @@ const int WINDOW_WIDTH=600;
 const int WINDOW_HEIGHT=400;
 //Vector de texturas
 std::vector< std::vector< std::vector< uint32_t > > > texturas;
-void inicio(){
-    if(SDL_Init(SDL_INIT_VIDEO)<0){
-		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
-	}
-	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer);
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
-    SDL_RenderClear(renderer);
-}
 template <typename T>
 std::string Str(const T & t){
 	std::ostringstream os;
@@ -55,6 +46,15 @@ std::vector< std::vector<uint32_t> > chunk(int n){
 		i++;
 	});
 	return res;
+}
+void inicio(){
+    if(SDL_Init(SDL_INIT_VIDEO)<0){
+		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
+	}
+	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer);
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
+    SDL_RenderClear(renderer);
 }
 //Almacenar texturas en memoria
 void cargarTexturas(){for(int i=0; i<NumTexturas; i++){texturas.push_back(chunk(i));}}
