@@ -1,14 +1,14 @@
-#include"Esctructura.hpp"
+#include<iostream>
+#include"Game.hpp"
+Game *game = nullptr;
 int main(int argc , char *argv[]){
-    inicio();
-    cargarTexturas();
-    draw();
-    while(true){
-        if(SDL_PollEvent(&event)&&event.type==SDL_QUIT){
-            break;
-        }else{
-            //Hilo principal
-        }
+    game = new Game();
+    game->init("Juego",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,800,600,false);
+    while(game->running()){
+        game->handleEvents();
+        game->update();
+        game->render();
     }
-    return close();
+    game->clean();
+    return EXIT_SUCCESS;
 }
