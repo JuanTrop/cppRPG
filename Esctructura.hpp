@@ -34,6 +34,15 @@ struct Piskel {
 	}
 };
 Piskel piskel = Piskel(0xff00ff00);
+void inicio(){
+    if(SDL_Init(SDL_INIT_VIDEO)<0){
+		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
+	}
+	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer);
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
+    SDL_RenderClear(renderer);
+}
 std::vector< std::vector<uint32_t> > chunk(int n){
 	std::vector< std::vector<uint32_t> > res(16,std::vector<uint32_t>(16,0));
 	int i=0 , j=0;
@@ -46,15 +55,6 @@ std::vector< std::vector<uint32_t> > chunk(int n){
 		i++;
 	});
 	return res;
-}
-void inicio(){
-    if(SDL_Init(SDL_INIT_VIDEO)<0){
-		std::cerr<<"SDL no pudo inciar, Error: "<<SDL_GetError();
-	}
-	SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer);
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(renderer,piskel.R,piskel.G,piskel.B,piskel.A);
-    SDL_RenderClear(renderer);
 }
 //Almacenar texturas en memoria
 void cargarTexturas(){for(int i=0; i<NumTexturas; i++){texturas.push_back(chunk(i));}}
@@ -72,6 +72,7 @@ void draw(){
 		}
 		n++;
 	});
+	SDL_RenderPresent(renderer);
 }
 
 int menu(){
