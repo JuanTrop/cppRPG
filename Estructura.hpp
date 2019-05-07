@@ -1,7 +1,7 @@
 #ifndef ESTRUCTURA_HPP
 #define ESTRUCTURA_HPP
 
-#include<SDL2/SDL.h>
+#include<SDL.h>
 #include"sprite.h"
 
 uint8_t Rojo(uint32_t data)	{return (uint8_t)(data);}

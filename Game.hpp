@@ -1,6 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "sprite.h"
 class Game{
     public:
