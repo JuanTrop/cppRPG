@@ -13,6 +13,7 @@ class Game{
                 window = SDL_CreateWindow(title,x,y,width,height,fullscreen?SDL_WINDOW_FULLSCREEN:0);
                 if(window){std::cout<<"Se ha creado la ventana"<<std::endl;}
                 renderer = SDL_CreateRenderer(window,-1,0);
+                SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
                 if(renderer){
                     SDL_SetRenderDrawColor(renderer,255,255,255,255);
                     std::cout<<"Se ha creado el renderizador"<<std::endl;
@@ -33,8 +34,15 @@ class Game{
             std::cout<<cnt<<std::endl;
         }
         void render(){
+            std::vector<std::vector<uint32_t>> f = escalado(chunk(3),15,15);
+            SDL_SetRenderDrawColor(renderer,255,255,255,255);
             SDL_RenderClear(renderer);
-
+            for(int i=0; i<f.size(); i++){
+                for(int j=0; j<f[i].size(); j++){
+                    SDL_SetRenderDrawColor(renderer,Rojo(f[i][j]),Verde(f[i][j]),Azul(f[i][j]),Alfa(f[i][j]));
+                    SDL_RenderDrawPoint(renderer,i,j);
+                }
+            }
             SDL_RenderPresent(renderer);
         }
         void clean(){
