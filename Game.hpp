@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include <SDL2/SDL.h>
+#include "Estructura.hpp"
 #include "sprite.h"
 class Game{
     public:
@@ -33,6 +34,7 @@ class Game{
         }
         void render(){
             SDL_RenderClear(renderer);
+
             SDL_RenderPresent(renderer);
         }
         void clean(){
