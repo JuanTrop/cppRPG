@@ -5,10 +5,11 @@ class Game{
     public:
         Game(){}
         ~Game(){}   
-        void init(const char* title, int x, int y, int width, int height, bool fullscreen){
+        int cnt = 0;
+        void init(const char* title, int width, int height, bool fullscreen){
             if(SDL_Init(SDL_INIT_EVERYTHING)==0){
                 std::cout<<"Juego ha arrancado!"<<std::endl;
-                window = SDL_CreateWindow(title,x,y,width,height,fullscreen?SDL_WINDOW_FULLSCREEN:0);
+                window = SDL_CreateWindow(title,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,fullscreen?SDL_WINDOW_FULLSCREEN:0);
                 if(window){std::cout<<"Se ha creado la ventana"<<std::endl;}
                 renderer = SDL_CreateRenderer(window,-1,0);
                 SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
@@ -41,9 +42,10 @@ class Game{
             for(size_t i=0; i<f.size(); i++){
                 for(size_t j=0; j<f[i].size(); j++){
                     SDL_SetRenderDrawColor(renderer,Rojo(f[i][j]),Verde(f[i][j]),Azul(f[i][j]),Alfa(f[i][j]));
-                    SDL_RenderDrawPoint(renderer,i,j);
+                    SDL_RenderDrawPoint(renderer,i+cnt,j+cnt/2);
                 }
             }
+            cnt+=cnt>(800-88)?0:1;
             SDL_RenderPresent(renderer);
         }
         void clean(){
@@ -54,7 +56,6 @@ class Game{
         }
         bool running(){return isRunning;}
     private:
-        int cnt = 0;
         bool isRunning;
         SDL_Window *window;
         SDL_Renderer *renderer;

@@ -104,22 +104,31 @@ std::vector< std::vector<uint32_t> > chunk(size_t n){
 	return res;
 }
 struct bloque{
+	private:
+		bool giroX, giroY, colision;;
+		int textura;
 	public:
-		bloque(int valor, bool giroX, bool giroY){
-			this->valor = valor;
-			this->giroX = giroX;
-			this->giroY = giroY;
+		bloque(int textura, bool giroX, bool giroY, int musica_fondo, int musica_batalla, int musica_jefe){
+			this->textura=textura;
+			this->giroX=giroX;	this->giroY=giroY;
+			this->musica_jefe = musica_jefe;
+			this->musica_batalla = musica_batalla;
+			this->musica_jefe = musica_jefe;
 		}
 		~bloque(){
-			valor = 0;
-			giroX = false;
-			giroY = false;
+			giroX = giroY = colision = false;
+			textura = musica_fondo = musica_batalla = musica_jefe = 0;
+			delete &giroX, &giroY, &colision, &textura, &musica_fondo, &musica_batalla, &musica_jefe;
 		};
-		std::vector<std::vector<uint32_t>> textura(){
-			return scale2x(scale2x(scale2x(flip(chunk(valor),giroX,giroY))));;
-		};
-	private:
-		int valor;
-		bool giroX, giroY;
+		std::vector<std::vector<uint32_t>> getImg(){
+			return flip(chunk(textura),giroX,giroY);
+		}
+		int musica_fondo;
+		int musica_batalla;
+		int musica_jefe;
+};
+struct nivel{
+	std::vector<std::vector<bloque>> mapa;
+
 };
 #endif /*ESTRUCTURA_HPP*/
