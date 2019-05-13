@@ -1,8 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-#include <SDL2/SDL.h>
 #include "Estructura.hpp"
-#include "sprite.h"
 class Game{
     public:
         Game(){}
@@ -19,7 +17,9 @@ class Game{
                     std::cout<<"Se ha creado el renderizador"<<std::endl;
                 }
                 isRunning = true;
-            }else{isRunning=false;}
+            }else{
+                isRunning=false;
+            }
         }
         void handleEvents(){
             SDL_Event event;
@@ -30,12 +30,13 @@ class Game{
             }
         }
         void update(){
-            cnt++;
-            std::cout<<cnt<<std::endl;
+            //Refrescar mapa
+            //cnt++;std::cout<<cnt<<std::endl;
         }
         void render(){
-            std::vector<std::vector<uint32_t>> f = escalado(chunk(3),15,15);
-            SDL_SetRenderDrawColor(renderer,255,255,255,255);
+            //std::vector<std::vector<uint32_t>> f = escalado(chunk(1),8,8);
+            std::vector<std::vector<uint32_t>> f = escalado(scale2x(scale2x(scale2x(chunk(1)))),0,0);
+            SDL_SetRenderDrawColor(renderer,255,255,255,0);
             SDL_RenderClear(renderer);
             for(int i=0; i<f.size(); i++){
                 for(int j=0; j<f[i].size(); j++){

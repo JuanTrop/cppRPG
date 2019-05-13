@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Game.hpp"
-#include"Estructura.hpp"
 Game *game = nullptr;
 int main(int argc , char *argv[]){
     game = new Game();
