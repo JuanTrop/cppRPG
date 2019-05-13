@@ -70,14 +70,20 @@ std::vector< std::vector<uint32_t> > chunk(size_t n){
 struct bloque{
 	public:
 		bloque(int valor, bool giroX, bool giroY){
-			textura = scale2x(scale2x(scale2x(flip(chunk(valor),giroX,giroY))));
+			this->valor = valor;
+			this->giroX = giroX;
+			this->giroY = giroY;
 		}
 		~bloque(){
-
-		}
+			valor = 0;
+			giroX = false;
+			giroY = false;
+		};
+		std::vector<std::vector<uint32_t>> textura(){
+			return scale2x(scale2x(scale2x(flip(chunk(valor),giroX,giroY))));;
+		};
 	private:
-		std::vector<std::vector<uint32_t>> textura;
 		int valor;
-		bool inversoX,inversoY;
+		bool giroX, giroY;
 };
 #endif /*ESTRUCTURA_HPP*/
