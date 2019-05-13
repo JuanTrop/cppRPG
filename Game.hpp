@@ -34,7 +34,6 @@ class Game{
             //cnt++;std::cout<<cnt<<std::endl;
         }
         void render(){
-            //std::vector<std::vector<uint32_t>> f = escalado(chunk(1),8,8);
             std::vector<std::vector<uint32_t>> f = escalado(scale2x(scale2x(scale2x(chunk(1)))),0,0);
             SDL_SetRenderDrawColor(renderer,255,255,255,0);
             SDL_RenderClear(renderer);

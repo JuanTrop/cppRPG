@@ -18,14 +18,19 @@ std::vector<std::vector<T>> flip(std::vector< std::vector<T> > m, bool x, bool y
 }
 template<class T>
 std::vector<std::vector<T>> escalado(std::vector<std::vector<T>> matrix, int x, int y){
-	std::vector<std::vector<T>> res = flip(matrix,x<0,y<0);
+	matrix = flip(matrix,x<0,y<0);
+	std::vector<std::vector<T>> res;
 	std::for_each(std::begin(matrix),std::end(matrix),[&res,y](std::vector<T>& vec){
-		for(int i = 0; i <= std::abs(y); i++){	res.push_back(vec);}
+		for(int i = 0; i <= std::abs(y); i++){
+			res.push_back(vec);
+		}
 	});
 	std::for_each(std::begin(res),std::end(res),[x](std::vector<T>& vec){
 		std::vector<T> aux;
 		for(int i = 0; i < vec.size(); i++){
-			for(int j = 0; j <= std::abs(x); j++){	aux.push_back(vec[i]);}
+			for(int j = 0; j <= std::abs(x); j++){
+				aux.push_back(vec[i]);
+			}
 		}
 		vec = aux;
 	});
@@ -70,9 +75,9 @@ struct bloque{
 		~bloque(){
 
 		}
-		std::vector<std::vector<uint32_t>> textura;
 	private:
-		int textura;
+		std::vector<std::vector<uint32_t>> textura;
+		int valor;
 		bool inversoX,inversoY;
 };
 #endif /*ESTRUCTURA_HPP*/
