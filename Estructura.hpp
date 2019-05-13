@@ -58,6 +58,42 @@ std::vector<std::vector<T>> scale2x(std::vector<std::vector<T>> mat){
 	}
 	return aux;
 }
+template<class T>
+std::vector<std::vector<T>> scale3x(std::vector<std::vector<T>> mat){
+std::vector<std::vector<T>> aux(mat.size()*3,std::vector<T>(mat[0].size()*3));
+	T A,B,C,D,E,F,G,H,I;
+	T *E0,*E1,*E2,*E3,*E4,*E5,*E6,*E7,*E8;
+	for(size_t i=0; i<mat.size();i++){
+		for(size_t j=0; j<mat[i].size();j++){
+			E0 = &aux[3*i][3*j];	E1 = &aux[3*i][3*j+1];	E2 = &aux[3*i][3*j+2];
+			E3 = &aux[3*i+1][3*j];	E4 = &aux[3*i+1][3*j+1];	E5 = &aux[3*i+1][3*j+2];
+			E6 = &aux[3*i+2][3*j];	E7 = &aux[3*i+2][3*j+1];	E8 = &aux[3*i+2][3*j+2];
+			E = mat[i][j];
+			A = i==0|j==0?E:mat[i-1][j-1];
+			B = i==0?E:mat[i-1][j];
+			C = (i==0|j==(mat[i].size()-1))?E:mat[i-1][j+1];
+			D = j==0?E:mat[i][j-1];
+			F = j==(mat[i].size()-1)?E:mat[i][j+1];
+			G = (i==(mat.size()-1)|j==0)?E:mat[i+1][j-1];
+			H = i==(mat.size()-1)?E:mat[i+1][j];
+			I = (i==(mat.size()-1)|j==(mat[i].size()-1))?E:mat[i+1][j+1];
+			if (B != H && D != F) {
+				*E0 = D == B ? D : E;
+				*E1 = (D == B && E != C) || (B == F && E != A) ? B : E;
+				*E2 = B == F ? F : E;
+				*E3 = (D == B && E != G) || (D == H && E != A) ? D : E;
+				*E4 = E;
+				*E5 = (B == F && E != I) || (H == F && E != C) ? F : E;
+				*E6 = D == H ? D : E;
+				*E7 = (D == H && E != I) || (H == F && E != G) ? H : E;
+				*E8 = H == F ? F : E;
+			} else {
+				*E0 = *E1 = *E2 = *E3 = *E4 = *E5 = *E6 = *E7 = *E8 = E;
+			}
+		}
+	}
+	return aux;
+}
 std::vector< std::vector<uint32_t> > chunk(size_t n){
 	std::vector< std::vector<uint32_t> > res(16,std::vector<uint32_t>(16,0));
 	for(size_t i = 0 ; i < 16; i++){

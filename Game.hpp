@@ -34,8 +34,8 @@ class Game{
             //cnt++;std::cout<<cnt<<std::endl;
         }
         void render(){
-            //Suponiendo que las medidas de la cámara sean M,N
-            std::vector<std::vector<uint32_t>> f = escalado(scale2x(scale2x(scale2x(chunk(1)))),0,0);
+            //std::vector<std::vector<uint32_t>> f = escalado(scale2x(scale2x(scale2x(chunk(1)))),0,0);
+            std::vector<std::vector<uint32_t>> f = escalado(scale3x(scale2x(chunk(1))),0,0);
             SDL_SetRenderDrawColor(renderer,255,255,255,0);
             SDL_RenderClear(renderer);
             for(size_t i=0; i<f.size(); i++){
