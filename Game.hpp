@@ -36,16 +36,16 @@ class Game{
         }
         void render(){
             //std::vector<std::vector<uint32_t>> f = escalado(scale2x(scale2x(scale2x(chunk(1)))),0,0);
-            Matriz f = scale3x(scale2x(scale3x(chunk(1))));
+            Matriz f = scale3x(scale2x(chunk(1)));
             SDL_SetRenderDrawColor(renderer,255,255,255,0);
             SDL_RenderClear(renderer);
             for(size_t i=0; i<f.getAltura(); i++){
                 for(size_t j=0; j<f.getAncho(); j++){
                     SDL_SetRenderDrawColor(renderer,Rojo(f.celda(i,j)),Verde(f.celda(i,j)),Azul(f.celda(i,j)),Alfa(f.celda(i,j)));
-                    SDL_RenderDrawPoint(renderer,i,j);
+                    SDL_RenderDrawPoint(renderer,i+cnt,j+cnt/2);
                 }
             }
-            cnt+=cnt>(800-88)?0:1;
+            cnt++;
             SDL_RenderPresent(renderer);
         }
         void clean(){

@@ -8,7 +8,7 @@ int main(int argc , char *argv[]){
         game->handleEvents();
         game->update();
         game->render();
-        if(game->cnt==(1)){break;}
+        if(game->cnt==800-88){break;}
     }
     game->clean();
     return EXIT_SUCCESS;
